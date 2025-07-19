@@ -1,0 +1,25 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+  }
+  
+  canvas {
+    margin: 20px auto;
+  }
+
+  #resetBtn {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  #resetBtn:hover {
+    background-color: #c0392b;
+  }
