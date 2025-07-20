@@ -1,3 +1,8 @@
+function getRandomColor(index) {
+  const hue = (index * 137.5) % 360;
+  return `hsl(${hue}, 65%, 65%)`;
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   fetch("http://localhost:3000/api/logs?userId=123")
     .then((response) => {
@@ -12,14 +17,14 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       const domainTimeMap = {};
-
       data.logs.forEach((log) => {
-        const hostname = new URL(log.url).hostname.replace(/^www\./, ''); // clean domain
+        const hostname = new URL(log.url).hostname.replace(/^www\./, '');
         domainTimeMap[hostname] = (domainTimeMap[hostname] || 0) + log.timeSpent;
       });
 
       const labels = Object.keys(domainTimeMap);
-      const timeSpent = Object.values(domainTimeMap).map((seconds) => seconds / 60); // to minutes
+      const timeSpent = Object.values(domainTimeMap).map((seconds) => seconds / 60);
+      const backgroundColors = labels.map((_, index) => getRandomColor(index));
 
       const ctx = document.getElementById("chart").getContext("2d");
       new Chart(ctx, {
@@ -29,9 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
           datasets: [{
             label: "Time Spent (minutes)",
             data: timeSpent,
-            backgroundColor: [
-              "#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0", "#9966FF", "#FF9F40"
-            ],
+            backgroundColor: backgroundColors,
             hoverOffset: 4
           }]
         },
@@ -58,7 +61,7 @@ document.getElementById("resetBtn").addEventListener("click", () => {
       .then((res) => res.json())
       .then((data) => {
         alert("Logs reset successfully.");
-        location.reload(); // Refresh chart view
+        location.reload();
       })
       .catch((err) => {
         console.error("Failed to reset logs:", err);

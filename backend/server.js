@@ -19,5 +19,4 @@ app.use("/api/logs", logRoutes);
 // Serve the dashboard files
 const dashboardPath = path.join(__dirname, "../dashboard");
 app.use("/analytics-dashboard", express.static(dashboardPath));
-app.get("/ping", (req, res) => res.send("pong"));
-app.listen(3000, () => console.log("🚀 Server running on port 3000"));
+app.listen(3000, () => console.log("Server running on port 3000"));
